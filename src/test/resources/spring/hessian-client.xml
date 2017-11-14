@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+    <beans profile="alpha">
+        <context:property-placeholder local-override="false"
+                                      location="classpath:config/alpha/uum-hessianapi.properties"/>
+    </beans>
+
+    <beans profile="beta">
+        <context:property-placeholder local-override="false"
+                                      location="classpath:config/beta/uum-hessianapi.properties"/>
+    </beans>
+
+    <beans>
+        <bean id="abstractHessianProxyFactory" abstract="true" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+            <property name="connectTimeout" value="60000" />
+            <property name="readTimeout" value="60000" />
+            <property name="hessian2" value="true" />
+        </bean>
+
+        <bean id="authorizationApiService" parent="abstractHessianProxyFactory">
+            <property name="serviceUrl" value="${umps.hessian.service.url}/api/authorization"/>
+            <property name="serviceInterface" value="com.lxl.ordering.api.AuthorizationApiService"/>
+        </bean>
+
+    </beans>
+</beans>

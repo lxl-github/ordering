@@ -1,0 +1,14 @@
+# REDIS (RedisProperties)
+#database name
+spring.redis.database=15
+#server host
+spring.redis.host=10.103.16.64
+#server password
+spring.redis.password=dddd
+#connection port
+spring.redis.port=16379
+#pool settings
+spring.redis.pool.max-idle=8
+spring.redis.pool.min-idle=0
+spring.redis.pool.max-active=8
+spring.redis.pool.max-wait=-1

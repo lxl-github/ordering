@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lxl.ordering.business.dao.RoleMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.lxl.ordering.business.domain.RoleMenu" >
+    <id column="c_id" property="id" jdbcType="INTEGER" />
+    <result column="c_role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="c_menu_id" property="menuId" jdbcType="INTEGER" />
+    <result column="c_app_id" property="appId" jdbcType="INTEGER" />
+    <result column="c_create_time" property="createTime" jdbcType="INTEGER" />
+    <result column="c_is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="c_modified_time" property="modifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_id, c_role_id, c_menu_id,c_app_id, c_create_time, c_is_deleted, c_modified_time
+  </sql>
+  <insert id="insertSelective" parameterType="com.lxl.ordering.business.domain.RoleMenu" useGeneratedKeys="true" keyProperty="id">
+    insert into upms_role_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        c_id,
+      </if>
+      <if test="roleId != null" >
+        c_role_id,
+      </if>
+      <if test="menuId != null" >
+        c_menu_id,
+      </if>
+      <if test="appId != null" >
+        c_app_id,
+      </if>
+      <if test="createTime != null" >
+        c_create_time,
+      </if>
+      <if test="isDeleted != null" >
+        c_is_deleted,
+      </if>
+      <if test="modifiedTime != null" >
+        c_modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="menuId != null" >
+        #{menuId,jdbcType=INTEGER},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedTime != null" >
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lxl.ordering.business.domain.RoleMenu" >
+    update upms_role_menu
+    <set >
+      <if test="roleId != null" >
+        c_role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="menuId != null" >
+        c_menu_id = #{menuId,jdbcType=INTEGER},
+      </if>
+      <if test="appId != null" >
+        c_app_id = #{appId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        c_create_time = #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        c_is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedTime != null" >
+        c_modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where c_id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectMenuIdList" resultType="java.lang.Integer">
+    select c_menu_id from upms_role_menu where c_role_id = #{roleId,jdbcType=INTEGER} and c_app_id = #{appId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteRoleMenu" parameterType="Integer">
+    delete from upms_role_menu where c_role_id = #{roleId,jdbcType=INTEGER} and c_app_id = #{appId,jdbcType=INTEGER}
+  </delete>
+</mapper>

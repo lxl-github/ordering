@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiro-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiro-service" charset="UTF-8" />
+    <file url="file://E:/sfBest/work-git-project/sfbest-product-centerservice/productcenter-service-server/src/conf/config/product/redis-config.properties" charset="UTF-8" />
+    <file url="file://E:/sfBest/work-git-project/sfbest-sompservice/sfbest-sompservice-bootstrap/src/conf/config/alpha/jdbc.properties" charset="UTF-8" />
+    <file url="file://E:/sfBest/work-git-project/sfbest-sompservice/sfbest-sompservice-bootstrap/src/conf/config/alpha/recketmq-config.properties" charset="UTF-8" />
+    <file url="file://E:/sfBest/work-git-project/sfbest-sompservice/sfbest-sompservice-bootstrap/src/conf/config/beta/jdbc.properties" charset="UTF-8" />
+    <file url="file://E:/sfBest/work-git-project/sfbest-sompservice/sfbest-sompservice-bootstrap/src/conf/config/beta/recketmq-config.properties" charset="UTF-8" />
+    <file url="file://E:/sfBest/work-git-project/sfbest-sompservice/sfbest-sompservice-bootstrap/src/conf/config/product/recketmq-config.properties" charset="UTF-8" />
+    <file url="file://E:/sfBest/work-git-project/sfbest-sompservice/sfbest-sompservice-bootstrap/src/conf/log4j.xml" charset="UTF-8" />
+  </component>
+</project>

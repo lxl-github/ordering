@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lxl.ordering.business.dao.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.lxl.ordering.business.domain.Role" >
+    <id column="c_id" property="id" jdbcType="INTEGER" />
+    <result column="c_name" property="name" jdbcType="VARCHAR" />
+    <result column="c_title" property="title" jdbcType="VARCHAR" />
+    <result column="c_status" property="status" jdbcType="INTEGER" />
+    <result column="c_description" property="description" jdbcType="VARCHAR" />
+    <result column="c_app_id" property="appId" jdbcType="INTEGER" />
+    <result column="c_app_title" property="appTitle" jdbcType="VARCHAR" />
+    <result column="c_create_time" property="createTime" jdbcType="INTEGER" />
+    <result column="c_is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="c_modified_time" property="modifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    c_id, c_name, c_title, c_status, c_description, c_app_id,c_create_time, c_is_deleted, c_modified_time
+  </sql>
+  <insert id="insertSelective" parameterType="com.lxl.ordering.business.domain.Role" keyProperty="id" useGeneratedKeys="true">
+    insert into upms_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        c_id,
+      </if>
+      <if test="name != null" >
+        c_name,
+      </if>
+      <if test="title != null" >
+        c_title,
+      </if>
+      <if test="status != null" >
+        c_status,
+      </if>
+      <if test="description != null" >
+        c_description,
+      </if>
+      <if test="appId != null" >
+        c_app_id,
+      </if>
+      <if test="createTime != null" >
+        c_create_time,
+      </if>
+      <if test="isDeleted != null" >
+        c_is_deleted,
+      </if>
+      <if test="modifiedTime != null" >
+        c_modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedTime != null" >
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lxl.ordering.business.domain.Role" >
+    update upms_role
+    <set >
+      <if test="name != null" >
+        c_name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        c_title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        c_status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        c_description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        c_app_id = #{appId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        c_create_time = #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        c_is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedTime != null" >
+        c_modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where c_id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAllList" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+    SELECT r.c_id, r.c_name, r.c_title, r.c_status, r.c_description, r.c_app_id,r.c_create_time, r.c_is_deleted, r.c_modified_time,a.c_title as c_app_title from upms_role r, upms_application a where 1=1 and r.c_app_id = a.c_id
+    <if test="name != null and name != ''">
+      AND c_name = #{name,jdbcType=VARCHAR}
+    </if>
+    <if test="offset != null and limit != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+
+  <select id="selectAllCount" resultType="Integer" parameterType="java.util.HashMap">
+    SELECT count(1) from upms_role where 1=1
+    <if test="name != null and name != ''">
+      AND c_name = #{name,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+
+  <select id="selectRoleById" parameterType="Integer" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> from upms_role where c_id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteById" parameterType="Integer" >
+    delete from upms_role where c_id = #{appId,jdbcType=INTEGER}
+  </delete>
+  
+  <select id="selectRoleListByAppId" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> from upms_role where c_app_id = #{appId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectRoleListByRoleIdList" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> from upms_role where c_id in 
+    <foreach collection="roleIdList" item="item" open="(" close=")" separator="," index="index">
+      #{item,jdbcType=INTEGER}
+    </foreach>
+  </select>
+
+  <select id="selectRoleAllByUserNumberAndAppKey" resultMap="BaseResultMap">
+    SELECT DISTINCT
+        r.c_id, r.c_name, r.c_title, r.c_status, r.c_description, r.c_app_id,r.c_create_time, r.c_is_deleted, r.c_modified_time
+    FROM
+        upms_role r
+    JOIN upms_user_role ur ON ur.c_role_id = r.c_id
+    JOIN upms_user_info u ON u.c_id = ur.c_user_id
+    JOIN upms_application a on a.c_id = ur.c_app_id
+    where u.c_user_number = #{userNumber,jdbcType=VARCHAR}
+    AND a.c_app_key = #{appKey,jdbcType=VARCHAR}
+  </select>
+</mapper>

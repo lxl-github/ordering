@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lxl.ordering.business.dao.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lxl.ordering.business.domain.UserInfo" >
+    <id column="c_id" property="id" jdbcType="INTEGER" />
+    <result column="c_user_number" property="userNumber" jdbcType="VARCHAR" />
+    <result column="c_user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="c_status" property="status" jdbcType="INTEGER" />
+    <result column="c_create_time" property="createTime" jdbcType="INTEGER" />
+    <result column="c_is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="c_modified_time" property="modifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_id, c_user_number, c_user_name, c_status, c_create_time, c_is_deleted, c_modified_time
+  </sql>
+  <insert id="insertSelective" parameterType="com.lxl.ordering.business.domain.UserInfo" keyProperty="id" useGeneratedKeys="true">
+    insert into upms_user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        c_id,
+      </if>
+      <if test="userNumber != null" >
+        c_user_number,
+      </if>
+      <if test="userName != null" >
+        c_user_name,
+      </if>
+      <if test="status != null" >
+        c_status,
+      </if>
+      <if test="createTime != null" >
+        c_create_time,
+      </if>
+      <if test="isDeleted != null" >
+        c_is_deleted,
+      </if>
+      <if test="modifiedTime != null" >
+        c_modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userNumber != null" >
+        #{userNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedTime != null" >
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lxl.ordering.business.domain.UserInfo" >
+    update upms_user_info
+    <set >
+      <if test="userNumber != null" >
+        c_user_number = #{userNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        c_user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        c_status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        c_create_time = #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        c_is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedTime != null" >
+        c_modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where c_id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAllList" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+    SELECT <include refid="Base_Column_List"/> from upms_user_info where 1=1
+    <if test="userNumber != null and userNumber != ''">
+      AND c_user_number = #{userNumber,jdbcType=VARCHAR}
+    </if>
+    <if test="userName != null and userName != ''" >
+      AND c_user_name = #{userName,jdbcType=VARCHAR}
+    </if>
+    <if test="offset != null and limit != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+
+  <select id="selectAllCount" resultType="Integer" parameterType="java.util.HashMap">
+    SELECT count(1) from upms_user_info where 1=1
+    <if test="userNumber != null and userNumber != ''">
+      AND c_user_number = #{userNumber,jdbcType=VARCHAR}
+    </if>
+    <if test="userName != null and userName != ''" >
+      AND c_user_name = #{userName,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+
+  <select id="selectUserInfoById" parameterType="Integer" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> from upms_user_info where c_id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteById" parameterType="Integer" >
+    delete from upms_user_info where c_id = #{appId,jdbcType=INTEGER}
+  </delete>
+
+  <select id="selectUserInfoByUserNumber" parameterType="String" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> from upms_user_info where c_user_number = #{userNumber,jdbcType=VARCHAR}
+  </select>
+</mapper>

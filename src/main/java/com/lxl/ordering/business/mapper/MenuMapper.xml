@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lxl.ordering.business.dao.MenuMapper" >
+  <resultMap id="BaseResultMap" type="com.lxl.ordering.business.domain.Menu" >
+    <id column="c_id" property="id" jdbcType="INTEGER" />
+    <result column="c_name" property="name" jdbcType="VARCHAR" />
+    <result column="c_type" property="type" jdbcType="INTEGER" />
+    <result column="c_parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="c_url" property="url" jdbcType="VARCHAR" />
+    <result column="c_permission_value" property="permissionValue" jdbcType="VARCHAR" />
+    <result column="c_orders" property="orders" jdbcType="INTEGER" />
+    <result column="c_app_id" property="appId" jdbcType="INTEGER" />
+    <result column="c_app_title" property="appTitle" jdbcType="VARCHAR" />
+    <result column="c_create_time" property="createTime" jdbcType="INTEGER" />
+    <result column="c_is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="c_modified_time" property="modifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_id, c_name, c_type, c_parent_id, c_url, c_permission_value, c_orders, c_app_id,
+    c_create_time, c_is_deleted, c_modified_time
+  </sql>
+  <insert id="insertSelective" parameterType="com.lxl.ordering.business.domain.Menu" keyProperty="id" useGeneratedKeys="true">
+    insert into upms_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        c_id,
+      </if>
+      <if test="name != null" >
+        c_name,
+      </if>
+      <if test="type != null" >
+        c_type,
+      </if>
+      <if test="parentId != null" >
+        c_parent_id,
+      </if>
+      <if test="url != null" >
+        c_url,
+      </if>
+      <if test="permissionValue != null" >
+        c_permission_value,
+      </if>
+      <if test="orders != null" >
+        c_orders,
+      </if>
+      <if test="appId != null" >
+        c_app_id,
+      </if>
+      <if test="createTime != null" >
+        c_create_time,
+      </if>
+      <if test="isDeleted != null" >
+        c_is_deleted,
+      </if>
+      <if test="modifiedTime != null" >
+        c_modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionValue != null" >
+        #{permissionValue,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null" >
+        #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedTime != null" >
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lxl.ordering.business.domain.Menu" >
+    update upms_menu
+    <set >
+      <if test="name != null" >
+        c_name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        c_type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        c_parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        c_url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionValue != null" >
+        c_permission_value = #{permissionValue,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null" >
+        c_orders = #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="appId != null" >
+        c_app_id = #{appId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        c_create_time = #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        c_is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedTime != null" >
+        c_modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where c_id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAllList" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+    SELECT <include refid="Base_Column_List"/> from upms_menu where 1=1
+    <if test="name != null and name != ''">
+      AND c_name = #{name,jdbcType=VARCHAR}
+    </if>
+    <if test="offset != null and limit != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+    SELECT m.c_id, m.c_name, m.c_type, m.c_parent_id, m.c_url, m.c_permission_value, m.c_orders, m.c_app_id,
+    m.c_create_time, m.c_is_deleted, m.c_modified_time, a.c_title as c_app_title from upms_menu m, upms_application a where 1=1 and m.c_app_id = a.c_id order by c_app_id,c_orders
+  </select>
+
+  <select id="selectAllCount" resultType="Integer" parameterType="java.util.HashMap">
+    SELECT count(1) from upms_menu where 1=1
+    <if test="name != null and name != ''">
+      AND c_name = #{name,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="selectMenuById" parameterType="Integer" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> from upms_menu where c_id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectMenuListByAppId" parameterType="Integer" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> from upms_menu where c_app_id = #{appId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteById" parameterType="Integer" >
+    delete from upms_menu where c_id = #{appId,jdbcType=INTEGER}
+  </delete>
+
+  <select id="selectMenuListByParentId" parameterType="Integer" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> from upms_menu where c_parent_id = #{menuId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectMenuListByUserNumberAndAppKey" resultMap="BaseResultMap">
+    SELECT
+	 DISTINCT m.c_id, m.c_name, m.c_type, m.c_parent_id, m.c_url, m.c_permission_value, m.c_orders, m.c_app_id,
+     m.c_create_time, m.c_is_deleted, m.c_modified_time
+    FROM
+        upms_menu m
+    JOIN upms_role_menu rm ON m.c_id = rm.c_menu_id
+    JOIN upms_user_role ur ON ur.c_role_id = rm.c_role_id
+    JOIN upms_user_info u ON u.c_id = ur.c_user_id
+    JOIN upms_application a on a.c_id = ur.c_app_id
+    where m.c_type in (1,2)
+    AND u.c_user_number = #{userNumber,jdbcType=VARCHAR}
+    AND a.c_app_key = #{appKey,jdbcType=VARCHAR}
+    ORDER BY m.c_orders
+  </select>
+
+  <select id="selectMenuAllListByUserNumberAndAppKey" resultMap="BaseResultMap">
+    SELECT
+    DISTINCT m.c_id, m.c_name, m.c_type, m.c_parent_id, m.c_url, m.c_permission_value, m.c_orders, m.c_app_id,
+    m.c_create_time, m.c_is_deleted, m.c_modified_time
+    FROM
+    upms_menu m
+    JOIN upms_role_menu rm ON m.c_id = rm.c_menu_id
+    JOIN upms_user_role ur ON ur.c_role_id = rm.c_role_id
+    JOIN upms_user_info u ON u.c_id = ur.c_user_id
+    JOIN upms_application a on a.c_id = ur.c_app_id
+    where m.c_type in (2,3)
+    AND u.c_user_number = #{userNumber,jdbcType=VARCHAR}
+    AND a.c_app_key = #{appKey,jdbcType=VARCHAR}
+    ORDER BY m.c_orders
+  </select>
+</mapper>

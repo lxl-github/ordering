@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lxl.ordering.business.dao.ApplicationMapper" >
+  <resultMap id="BaseResultMap" type="com.lxl.ordering.business.domain.Application" >
+    <id column="c_id" property="id" jdbcType="INTEGER" />
+    <result column="c_name" property="name" jdbcType="VARCHAR" />
+    <result column="c_app_key" property="appKey" jdbcType="VARCHAR" />
+    <result column="c_icon" property="icon" jdbcType="VARCHAR" />
+    <result column="c_base_path" property="basePath" jdbcType="VARCHAR" />
+    <result column="c_title" property="title" jdbcType="VARCHAR" />
+    <result column="c_status" property="status" jdbcType="INTEGER" />
+    <result column="c_orders" property="orders" jdbcType="INTEGER" />
+    <result column="c_description" property="description" jdbcType="VARCHAR" />
+    <result column="c_create_time" property="createTime" jdbcType="INTEGER" />
+    <result column="c_is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="c_modified_time" property="modifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_id, c_name, c_app_key, c_icon, c_base_path, c_title, c_status, c_orders, c_description, 
+    c_create_time, c_is_deleted, c_modified_time
+  </sql>
+  <insert id="insertSelective" parameterType="com.lxl.ordering.business.domain.Application" keyProperty="id" useGeneratedKeys="true">
+    insert into upms_application
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        c_id,
+      </if>
+      <if test="name != null" >
+        c_name,
+      </if>
+      <if test="appKey != null" >
+        c_app_key,
+      </if>
+      <if test="icon != null" >
+        c_icon,
+      </if>
+      <if test="basePath != null" >
+        c_base_path,
+      </if>
+      <if test="title != null" >
+        c_title,
+      </if>
+      <if test="status != null" >
+        c_status,
+      </if>
+      <if test="orders != null" >
+        c_orders,
+      </if>
+      <if test="description != null" >
+        c_description,
+      </if>
+      <if test="createTime != null" >
+        c_create_time,
+      </if>
+      <if test="isDeleted != null" >
+        c_is_deleted,
+      </if>
+      <if test="modifiedTime != null" >
+        c_modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="appKey != null" >
+        #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="basePath != null" >
+        #{basePath,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="orders != null" >
+        #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedTime != null" >
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lxl.ordering.business.domain.Application" >
+    update upms_application
+    <set >
+      <if test="name != null" >
+        c_name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="appKey != null" >
+        c_app_key = #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        c_icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="basePath != null" >
+        c_base_path = #{basePath,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        c_title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        c_status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="orders != null" >
+        c_orders = #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        c_description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        c_create_time = #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        c_is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedTime != null" >
+        c_modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where c_id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAllList" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+    SELECT <include refid="Base_Column_List"/> from upms_application where 1=1
+    <if test="name != null and name != ''">
+    AND c_name = #{name,jdbcType=VARCHAR}
+    </if>
+    <if test="offset != null and limit != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+
+  <select id="selectAllCount" resultType="Integer" parameterType="java.util.HashMap">
+    SELECT count(1) from upms_application where 1=1
+    <if test="name != null and name != ''">
+      AND c_name = #{name,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="selectByAppKey" parameterType="String" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> from upms_application where c_app_key = #{appKey,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByAppId" parameterType="Integer" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> from upms_application where c_id = #{appId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteById" parameterType="Integer" >
+    delete from upms_application where c_id = #{appId,jdbcType=INTEGER}
+  </delete>
+
+  <select id="selectApplicationEnableList" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from upms_application where c_status = 1;
+  </select>
+
+</mapper>
